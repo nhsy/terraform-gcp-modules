@@ -1,8 +1,8 @@
-# shared-vpc complete example
+# compute example
 
-Creates standard subnets, kubernetes subnets with secondary networking and enables shared vpc.
+Deploys bastion compute vm into default VPC
 
-1. Requires a GCP user or ServiceAccount which has been delegated Compute Shared VPC Admin role.  
+1. Requires a GCP user or ServiceAccount.
 
 1. Authenticate to GCP using either one of the following:
 

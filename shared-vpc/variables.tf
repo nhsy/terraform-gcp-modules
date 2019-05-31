@@ -5,20 +5,23 @@ variable "region" {
 }
 
 variable "region_zone" {
-   default = "europe-west2-a"
-   type    = "string"
-   default = "zone name in the region provided."
+  default = "europe-west2-a"
+  type    = "string"
+  default = "zone name in the region provided."
 }
+
 variable "host_project_id" {
   type        = "string"
   default     = "shared-vpc"
   description = "Identifier for the host project to be used"
 }
+
 variable "service_project_ids" {
   type        = "list"
   default     = []
   description = "Associated service projects to link with the host project."
 }
+
 variable shared_vpc_name {
   type        = "string"
   default     = "shared-network"
@@ -75,6 +78,6 @@ variable create_nat_gateway {
 
 variable tags {
   type        = "map"
-  default     = { }
+  default     = {}
   description = "A map of tags to add to all resources"
 }

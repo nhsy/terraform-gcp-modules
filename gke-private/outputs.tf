@@ -6,6 +6,7 @@ output "cluster_sa" {
 #   value = "${google_project_iam_member.cluster_serviceAgent.role}"
 # }
 
+
 # output "cluster_client_certificate" {
 #   value = "${google_container_cluster.gke.master_auth.0.client_certificate}"
 # }

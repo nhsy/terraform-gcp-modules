@@ -10,6 +10,7 @@ resource "google_compute_shared_vpc_service_project" "service_project" {
   count           = "${length(var.service_project_ids)}"
   host_project    = "${var.host_project_id}"
   service_project = "${element(var.service_project_ids, count.index)}"
+
   #labels          = "${var.tags}"
   depends_on = ["google_compute_shared_vpc_host_project.host"]
 }
@@ -23,6 +24,7 @@ resource "google_compute_network" "shared_network" {
   routing_mode            = "REGIONAL"
   project                 = "${var.host_project_id}"
 }
+
 resource "google_compute_subnetwork" "standard" {
   count            = "${length(var.standard_network_subnets)}"
   name             = "${lookup(var.standard_network_subnets[count.index], "name")}"
@@ -31,8 +33,9 @@ resource "google_compute_subnetwork" "standard" {
   project          = "${var.host_project_id}"
   network          = "${google_compute_network.shared_network.name}"
   enable_flow_logs = "${var.enable_flow_logs}"
+
   #labels           = "${var.tags}"
-  depends_on       = ["google_compute_network.shared_network"]
+  depends_on = ["google_compute_network.shared_network"]
 }
 
 resource "google_compute_subnetwork" "gke" {
@@ -43,8 +46,9 @@ resource "google_compute_subnetwork" "gke" {
   project          = "${var.host_project_id}"
   network          = "${google_compute_network.shared_network.name}"
   enable_flow_logs = "${var.enable_flow_logs}"
+
   #labels           = "${var.tags}"
-  depends_on       = ["google_compute_network.shared_network"]
+  depends_on = ["google_compute_network.shared_network"]
 
   # Kubernetes Secondary Networking
   secondary_ip_range {
@@ -68,10 +72,11 @@ resource "google_compute_router" "router" {
   project = "${var.host_project_id}"
   region  = "${var.region}"
 }
+
 resource "google_compute_router_nat" "simple-nat" {
   count                              = "${var.create_nat_gateway ? 1 : 0}"
   name                               = "${var.router_nat_name}"
-  project = "${var.host_project_id}"
+  project                            = "${var.host_project_id}"
   router                             = "${google_compute_router.router.name}"
   region                             = "${var.region}"
   nat_ip_allocate_option             = "AUTO_ONLY"

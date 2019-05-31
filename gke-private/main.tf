@@ -24,6 +24,7 @@ resource "google_container_cluster" "gke" {
       issue_client_certificate = false
     }
   }
+
   # use latest version, unless a specific version requested
   min_master_version = "${var.cluster_min_master_version == "latest" ? data.google_container_engine_versions.this.latest_node_version : var.cluster_min_master_version}"
 
@@ -44,15 +45,16 @@ resource "google_container_cluster" "gke" {
     enable_private_nodes    = "true"
     master_ipv4_cidr_block  = "${var.cluster_master_cidr}"
   }
-
   # ensure service accounts are created before cluster creation
   depends_on = [
-       "google_service_account.cluster",
-      # "google_project_iam_member.cluster_serviceAgent",
-       "google_project_iam_member.cluster_hostServiceAgentUser",
-       "google_compute_subnetwork_iam_member.cluster_networkUser_1",
-       "google_compute_subnetwork_iam_member.cluster_networkUser_2"
-   ]
+    "google_service_account.cluster",
+
+    # "google_project_iam_member.cluster_serviceAgent",
+    "google_project_iam_member.cluster_hostServiceAgentUser",
+
+    "google_compute_subnetwork_iam_member.cluster_networkUser_1",
+    "google_compute_subnetwork_iam_member.cluster_networkUser_2",
+  ]
 }
 
 resource "google_container_node_pool" "gke_node_pool" {
@@ -68,10 +70,10 @@ resource "google_container_node_pool" "gke_node_pool" {
   }
 
   node_config {
-    disk_size_gb = "${var.cluster_node_disk_size}"
-    machine_type = "${var.cluster_machine_type}"
-    oauth_scopes = "${var.cluster_oauth_scopes}"
+    disk_size_gb    = "${var.cluster_node_disk_size}"
+    machine_type    = "${var.cluster_machine_type}"
+    oauth_scopes    = "${var.cluster_oauth_scopes}"
     service_account = "${google_service_account.cluster.email}"
-    tags = ["gke-private", "${data.google_compute_subnetwork.cluster.name}"]
+    tags            = ["gke-private", "${data.google_compute_subnetwork.cluster.name}"]
   }
 }

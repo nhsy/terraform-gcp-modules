@@ -10,8 +10,7 @@ Deploys GKE private cluster.
 
    - Set GOOGLE_APPLICATION_CREDENTIALS environment variable
 
-
-1. Ammend terraform.tfvars accordingly.
+1. Amend terraform.tfvars accordingly.
 
 1. Run the following commands:
 

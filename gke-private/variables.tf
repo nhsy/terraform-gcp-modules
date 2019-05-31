@@ -1,7 +1,7 @@
 variable "region" {
-  type = "string"
+  type        = "string"
   description = "The region to host the cluster in"
-  default = "europe-west2"
+  default     = "europe-west2"
 }
 
 variable "sharedvpc_project_id" {
@@ -25,7 +25,7 @@ variable "cluster_pool_name" {
 }
 
 variable "cluster_machine_type" {
-  type = "string"
+  type    = "string"
   default = "n1-standard-2"
 }
 
@@ -42,17 +42,17 @@ variable "cluster_service_account" {
 }
 
 variable "cluster_min_master_version" {
-  type = "string"
+  type    = "string"
   default = "latest"
 }
 
 variable "cluster_autoscaling_min_nodes" {
-  type = "string"
-  default ="1"
+  type    = "string"
+  default = "1"
 }
 
 variable "cluster_autoscaling_max_nodes" {
-  type = "string"
+  type    = "string"
   default = "3"
 }
 
@@ -61,22 +61,23 @@ variable "cluster_master_authorized_cidrs" {
 }
 
 variable "cluster_daily_maintenance_start" {
-  type = "string"
+  type    = "string"
   default = "02:00"
 }
 
 variable "cluster_node_disk_size" {
-  type = "string"
+  type    = "string"
   default = "10"
 }
 
 variable "cluster_oauth_scopes" {
   type = "list"
+
   default = [
-      "compute-rw",
-      "storage-ro",
-      "logging-write",
-      "monitoring",
-      "https://www.googleapis.com/auth/userinfo.email",
-    ]
+    "compute-rw",
+    "storage-ro",
+    "logging-write",
+    "monitoring",
+    "https://www.googleapis.com/auth/userinfo.email",
+  ]
 }
